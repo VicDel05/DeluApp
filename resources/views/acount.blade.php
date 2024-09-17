@@ -20,21 +20,4 @@
       </div>
     </div>
 </div>
-    {{-- <div class="container mt-5">
-        <h1>Perfil</h1>
-        <div class="row">
-            <div class="col-12 col-md-6 mb-3">
-              <div class="card p-3">
-                <img src="img/gente.png" class="card-img-top" alt="user-img">
-              </div>
-            </div>
-            <div class="col-12 col-md-6 mb-3">
-              <div class="card p-3">
-                <p class="mb-2 mt-2">Usuario: {{ Auth::user()->nombre }} {{ Auth::user()->apellidoP }} {{ Auth::user()->apellidoM }}</p>
-                <p class="mb-2">Correo: {{ Auth::user()->email }}</p>
-                <p class="mb-2">Registrado el dia: {{ Auth::user()->created_at }}</p>
-              </div>
-            </div>
-          </div>
-    </div> --}}
 @endsection

@@ -16,7 +16,7 @@ class RoleMiddleware
      */
     public function handle($request, Closure $next, $role): Response{
         // Verificar si el usuario está autenticado y si tiene el rol correcto
-        if (!Auth::check() || Auth::user()->role->name !== $role) {
+        if (!Auth::check() || Auth::user()->roles->nombre !== $role) {
             abort(403, 'No tienes acceso a esta sección');
         }
         return $next($request);

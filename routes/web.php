@@ -3,10 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Auth\RegisterController;
-
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+use App\Http\Controllers\AcountController;
 
 // Mostrar formulario de login
 Route::get('/', [AuthController::class, 'showLoginForm'])->name('login');
@@ -26,3 +23,5 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']) -> name('register.submit');
+
+Route::get('/acount', [AcountController::class, 'showView'])->name('acount');

@@ -8,11 +8,11 @@
         <div class="flex justify-center">
           <div class="w-full md:w-2/3 xl:w-2/3 p-4">
             <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-              <div class="mb-4">
-                <h2 class="text-lg font-bold">{{ __('Registro') }}</h2>
-              </div>
+                <div class="mb-4">
+                    <h2 class="text-lg font-bold">{{ __('Registro') }}</h2>
+                </div>
       
-              <form method="POST" action="{{ route('register') }}">
+                <form method="POST" action="{{ route('register') }}">
                 @csrf
                 @if($errors->any())
                   <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
@@ -104,10 +104,9 @@
                 <div class="flex justify-center">
                   <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Registrar</button>
                 </div>
-              </form>
+                </form>
             </div>
           </div>
         </div>
-        <a href="/dashboard" class="text-blue-500 hover:text-blue-700">Regresar</a>
     </div>
 @endsection

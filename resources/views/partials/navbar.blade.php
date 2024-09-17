@@ -1,7 +1,12 @@
 
 <nav class="bg-white p-4">
     <div class="container mx-auto flex justify-between items-center">
-      <a class="text-lg font-bold" href="{{ url('/dashboard') }}">Home</a>
+      @if (Auth::check() && Auth::user()->role_id == '1')
+        <a class="text-lg font-bold" href="{{ url('/dashboard') }}"><img src="img/Delu24-wbg.png" class="w-28" alt="logo"></a>
+      @else
+        <a class="text-lg font-bold" href="{{ url('/staff') }}"><img src="img/Delu24-wbg.png" class="w-28" alt="logo"></a>
+      @endif
+      {{-- <a class="text-lg font-bold" href="{{ url('/dashboard') }}">Home</a> --}}
       <div class="block lg:hidden">
         <button class="focus:outline-none" id="nav-toggle">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -14,10 +19,10 @@
         @if (Auth::check() && Auth::user()->role_id == '1')
           <ul class="lg:flex lg:space-x-4">
             <li class="">
-              <a class="text-lg hover:text-blue-500" href="{{ route('dashboard') }}">Dashboard</a>
+              <a class="text-lg hover:text-blue-500" href="{{ route('users.index') }}">Usuarios</a>
             </li>
             <li class="">
-              <a class="text-lg hover:text-blue-500" href="{{ route('users.index') }}">Usuarios</a>
+              <a class="text-lg hover:text-blue-500" href="{{ route('categories.index') }}">Categorías</a>
             </li>
             <li class="">
               <a class="text-lg hover:text-blue-500" href="{{ route('acount') }}">Profile</a>

@@ -5,6 +5,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\AcountController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\EmployeeMenuController;
 
 // Mostrar formulario de login
 Route::get('/', [AuthController::class, 'showLoginForm'])->name('login');
@@ -22,13 +24,25 @@ Route::middleware('auth')->group(function () {
     })->name('dashboard');
 });
 
+Route::middleware(['auth', \App\Http\Middleware\CheckEmployeeRole::class])->group(function () {
+    Route::get('/staff', [EmployeeMenuController::class, 'index'])->name('staff');
+});
+
 Route::middleware([App\Http\Middleware\IsAdmin::class])->group(function () {
+    // Usuarios
     Route::get('/admin/users', [UsersController::class, 'index'])->name('users.index');
     Route::get('/admin/users/create', [UsersController::class, 'create'])->name('users.create');
     Route::post('/admin/users/create', [UsersController::class, 'store'])->name('users.store');
     Route::get('/admin/users/edit/{id}', [UsersController::class, 'edit'])->name('users.edit');
     Route::put('/admin/users/update/{id}', [UsersController::class, 'update'])->name('users.update');
     Route::delete('/admin/users/delete/{id}', [UsersController::class, 'destroy'])->name('users.delete');
+    // Categorias
+    Route::get('/staff/categories', [CategoriesController::class, 'index'])->name('categories.index');
+    Route::get('/staff/categories/create', [CategoriesController::class, 'create'])->name('categories.create');
+    Route::post('/staff/categories/create', [CategoriesController::class, 'store'])->name('categories.store');
+    Route::get('/staff/categories/edit/{id}', [CategoriesController::class, 'edit'])->name('categories.edit');
+    Route::put('/staff/categories/update/{id}', [CategoriesController::class, 'update'])->name('categories.update');
+    Route::delete('/staff/categories/delete/{id}', [CategoriesController::class, 'destroy'])->name('categories.delete');
 });
 
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');

@@ -3,41 +3,6 @@
 @section('title', 'Inicio de sesión')
 
 @section('content')
-    {{-- <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <h3 class="text-center mb-4">Iniciar sesión</h3>
-                <form action="{{ route('login.submit') }}" method="POST">
-                    @csrf
-
-                    @if($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Correo electrónico</label>
-                        <input type="email" name="email" id="email" class="form-control" required value="{{ old('email') }}">
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Contraseña</label>
-                        <input type="password" name="password" id="password" class="form-control" required>
-                    </div>
-
-                    <div class="d-grid gap-2">
-                        <button type="submit" class="btn btn-primary">Iniciar sesión</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <a href="/register">Otra pagina</a>
-    </div> --}}
 
     <div class="container mt-5">
         <div class="flex justify-center">
@@ -72,6 +37,6 @@
             </form>
           </div>
         </div>
-        <a href="/register" class="text-blue-500 hover:text-blue-700">Otra pagina</a>
+        {{-- <a href="/register" class="text-blue-500 hover:text-blue-700">Otra pagina</a> --}}
       </div>
 @endsection

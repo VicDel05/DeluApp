@@ -13,7 +13,9 @@
 <body>
 
     <!-- Navbar -->
-    @include('partials.navbar')
+    @if (!Route::is('login'))
+        @include('partials.navbar')   
+    @endif
 
     <!-- Main Content -->
     <div class="container">

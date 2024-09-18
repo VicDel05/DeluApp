@@ -25,7 +25,10 @@
               <a class="text-lg hover:text-blue-500" href="{{ route('categories.index') }}">Categorías</a>
             </li>
             <li class="">
-              <a class="text-lg hover:text-blue-500" href="{{ route('acount') }}">Profile</a>
+              <a class="text-lg hover:text-blue-500" href="{{ route('products.index') }}">Productos</a>
+            </li>
+            <li class="">
+              <a class="text-lg hover:text-blue-500" href="{{ route('acount') }}">Perfil</a>
             </li>
             <li class="">
               <form action="{{ route('logout') }}" method="post">

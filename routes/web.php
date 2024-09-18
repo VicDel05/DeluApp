@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\AcountController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\EmployeeMenuController;
 
 // Mostrar formulario de login
@@ -43,6 +44,13 @@ Route::middleware([App\Http\Middleware\IsAdmin::class])->group(function () {
     Route::get('/staff/categories/edit/{id}', [CategoriesController::class, 'edit'])->name('categories.edit');
     Route::put('/staff/categories/update/{id}', [CategoriesController::class, 'update'])->name('categories.update');
     Route::delete('/staff/categories/delete/{id}', [CategoriesController::class, 'destroy'])->name('categories.delete');
+    // Productos
+    Route::get('/admin/products', [ProductsController::class, 'index'])->name('products.index');
+    Route::get('/admin/products/create', [ProductsController::class, 'create'])->name('products.create');
+    Route::post('/admin/products/create', [ProductsController::class, 'store'])->name('products.store');
+    Route::get('/admin/products/edit/{id}', [ProductsController::class, 'edit'])->name('products.edit');
+    Route::put('/admin/products/update/{id}', [ProductsController::class, 'update'])->name('products.update');
+    Route::delete('/admin/products/delete/{id}', [ProductsController::class, 'destroy'])->name('products.delete');
 });
 
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');

@@ -8,6 +8,7 @@ use App\Http\Controllers\UsersController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\EmployeeMenuController;
+use App\Http\Controllers\SalesController;
 
 // Mostrar formulario de login
 Route::get('/', [AuthController::class, 'showLoginForm'])->name('login');
@@ -56,3 +57,4 @@ Route::middleware([App\Http\Middleware\IsAdmin::class])->group(function () {
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']) -> name('register.submit');
 Route::get('/acount', [AcountController::class, 'showView'])->name('acount');
+Route::resource('sales', SalesController::class);

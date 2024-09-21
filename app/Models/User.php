@@ -55,4 +55,8 @@ class User extends Authenticatable{
     public function hasRole($role){
         return $this->role->nombre == $role;
     }
+
+    public function sales(){
+        return $this->hasMany(Sales::class);
+    }
 }

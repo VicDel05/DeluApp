@@ -16,4 +16,15 @@ class Sales extends Model
         'fecha_venta',
         'total'
     ]; 
+
+    public function products(){
+        return $this->belongsToMany(Products::class, 'product_sale')
+                    ->withPivot('cantidad') // Si deseas acceder a la cantidad
+                    ->withTimestamps();
+    }
+
+    // Relación uno a muchos con Usuario
+    public function users(){
+        return $this->belongsTo(User::class);
+    }
 }

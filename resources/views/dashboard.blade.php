@@ -32,7 +32,7 @@
             <div class="w-full md:w-1/3 xl:w-1/3 p-4">
               <div class="bg-blue-100 rounded shadow-md p-4 text-center">
                 <h5 class="text-lg font-bold mb-2">Ventas</h5>
-                <a href="#" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Ir</a>
+                <a href="sales" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Ir</a>
               </div>
             </div>
             <div class="w-full md:w-1/3 xl:w-1/3 p-4">

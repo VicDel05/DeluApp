@@ -6,7 +6,6 @@
       @else
         <a class="text-lg font-bold" href="{{ url('/staff') }}"><img src="img/Delu24-wbg.png" class="w-28" alt="logo"></a>
       @endif
-      {{-- <a class="text-lg font-bold" href="{{ url('/dashboard') }}">Home</a> --}}
       <div class="block lg:hidden">
         <button class="focus:outline-none" id="nav-toggle">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -28,6 +27,13 @@
               <a class="text-lg hover:text-blue-500" href="{{ route('products.index') }}">Productos</a>
             </li>
             <li class="">
+              <a class="text-lg hover:text-blue-500" href="{{ route('sales.index') }}">Ventas</a>
+            </li>
+            {{-- {{ route('products.index') }} --}}
+            <li class="">
+              <a class="text-lg hover:text-blue-500" href="#">Reportes</a>
+            </li>
+            <li class="">
               <a class="text-lg hover:text-blue-500" href="{{ route('acount') }}">Perfil</a>
             </li>
             <li class="">
@@ -39,11 +45,15 @@
           </ul>
         @else
         <ul class="lg:flex lg:space-x-4">
+          {{-- {{ route('login') }} --}}
           <li class="">
-            <a class="text-lg hover:text-blue-500" href="{{ route('login') }}">Productos</a>
+            <a class="text-lg hover:text-blue-500" href="#">Productos</a>
           </li>
           <li class="">
-            <a class="text-lg hover:text-blue-500" href="{{ route('acount') }}">Profile</a>
+            <a class="text-lg hover:text-blue-500" href="{{ route('sales.index') }}">Ventas</a>
+          </li>
+          <li class="">
+            <a class="text-lg hover:text-blue-500" href="{{ route('acount') }}">Perfil</a>
           </li>
           <li class="">
             <form action="{{ route('logout') }}" method="post">

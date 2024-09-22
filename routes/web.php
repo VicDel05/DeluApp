@@ -9,6 +9,7 @@ use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\EmployeeMenuController;
 use App\Http\Controllers\SalesController;
+use App\Http\Controllers\ReportController;
 
 // Mostrar formulario de login
 Route::get('/', [AuthController::class, 'showLoginForm'])->name('login');
@@ -32,26 +33,30 @@ Route::middleware(['auth', \App\Http\Middleware\CheckEmployeeRole::class])->grou
 
 Route::middleware([App\Http\Middleware\IsAdmin::class])->group(function () {
     // Usuarios
-    Route::get('/admin/users', [UsersController::class, 'index'])->name('users.index');
-    Route::get('/admin/users/create', [UsersController::class, 'create'])->name('users.create');
-    Route::post('/admin/users/create', [UsersController::class, 'store'])->name('users.store');
-    Route::get('/admin/users/edit/{id}', [UsersController::class, 'edit'])->name('users.edit');
-    Route::put('/admin/users/update/{id}', [UsersController::class, 'update'])->name('users.update');
-    Route::delete('/admin/users/delete/{id}', [UsersController::class, 'destroy'])->name('users.delete');
+    Route::get('/users', [UsersController::class, 'index'])->name('users.index');
+    Route::get('/users/create', [UsersController::class, 'create'])->name('users.create');
+    Route::post('/users/create', [UsersController::class, 'store'])->name('users.store');
+    Route::get('/users/edit/{id}', [UsersController::class, 'edit'])->name('users.edit');
+    Route::put('/users/update/{id}', [UsersController::class, 'update'])->name('users.update');
+    Route::delete('/users/delete/{id}', [UsersController::class, 'destroy'])->name('users.delete');
     // Categorias
-    Route::get('/staff/categories', [CategoriesController::class, 'index'])->name('categories.index');
-    Route::get('/staff/categories/create', [CategoriesController::class, 'create'])->name('categories.create');
-    Route::post('/staff/categories/create', [CategoriesController::class, 'store'])->name('categories.store');
-    Route::get('/staff/categories/edit/{id}', [CategoriesController::class, 'edit'])->name('categories.edit');
-    Route::put('/staff/categories/update/{id}', [CategoriesController::class, 'update'])->name('categories.update');
-    Route::delete('/staff/categories/delete/{id}', [CategoriesController::class, 'destroy'])->name('categories.delete');
+    Route::get('/categories', [CategoriesController::class, 'index'])->name('categories.index');
+    Route::get('/categories/create', [CategoriesController::class, 'create'])->name('categories.create');
+    Route::post('/categories/create', [CategoriesController::class, 'store'])->name('categories.store');
+    Route::get('/categories/edit/{id}', [CategoriesController::class, 'edit'])->name('categories.edit');
+    Route::put('/categories/update/{id}', [CategoriesController::class, 'update'])->name('categories.update');
+    Route::delete('/categories/delete/{id}', [CategoriesController::class, 'destroy'])->name('categories.delete');
     // Productos
-    Route::get('/admin/products', [ProductsController::class, 'index'])->name('products.index');
-    Route::get('/admin/products/create', [ProductsController::class, 'create'])->name('products.create');
-    Route::post('/admin/products/create', [ProductsController::class, 'store'])->name('products.store');
-    Route::get('/admin/products/edit/{id}', [ProductsController::class, 'edit'])->name('products.edit');
-    Route::put('/admin/products/update/{id}', [ProductsController::class, 'update'])->name('products.update');
-    Route::delete('/admin/products/delete/{id}', [ProductsController::class, 'destroy'])->name('products.delete');
+    Route::get('/products', [ProductsController::class, 'index'])->name('products.index');
+    Route::get('/products/create', [ProductsController::class, 'create'])->name('products.create');
+    Route::post('/products/create', [ProductsController::class, 'store'])->name('products.store');
+    Route::get('/products/edit/{id}', [ProductsController::class, 'edit'])->name('products.edit');
+    Route::put('/products/update/{id}', [ProductsController::class, 'update'])->name('products.update');
+    Route::delete('/products/delete/{id}', [ProductsController::class, 'destroy'])->name('products.delete');
+    // Reportes
+    Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
+    Route::get('/reports/stock', [ReportController::class, 'stockReport'])->name('reports.stock');
+    Route::get('/reports/user', [ReportController::class, 'userReport'])->name('reports.user');
 });
 
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');

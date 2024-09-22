@@ -18,7 +18,7 @@
     @endif
 
     <!-- Main Content -->
-    <div class="container">
+    <div class="container bg-gray-100">
         @yield('content')
     </div>
 

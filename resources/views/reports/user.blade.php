@@ -3,7 +3,7 @@
 @section('title', 'Reporte de usuarios')
 
 @section('content')
-<div class="container mx-auto p-4">
+<div class="container mx-auto p-4" id="userReport">
     <h1 class="text-3xl font-bold mb-4">Reporte de Usuarios</h1>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -59,6 +59,21 @@
             @endforeach
         </tbody>
     </table>
+    <div class="flex justify-center mt-5">
+        <button onclick="printSection()" class="bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-6 rounded-lg shadow-lg transition duration-200">
+            Descargar reporte
+        </button>
+    </div>
 </div>
 
+<script>
+    function printSection() {
+        var printContent = document.getElementById('userReport').outerHTML;
+        var originalContent = document.body.outerHTML;
+      
+        document.body.outerHTML = printContent;
+        window.print();
+        document.body.outerHTML = originalContent;
+    }
+</script>
 @endsection

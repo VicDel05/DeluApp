@@ -43,7 +43,7 @@
                         <td class="py-3 px-6">{{ $product->categories->nombre ?? 'Sin categoría' }}</td>
                         <td class="py-3 px-6 flex space-x-2">
                             <a href="{{ route('products.edit', [($product->id)]) }}" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded shadow">Editar</a>
-                            <form action="{{ route('products.delete', $product->id) }}" method="POST" class="inline">
+                            <form action="{{ route('products.delete', $product->id) }}" method="POST" class="inline" onsubmit="return confirm('¿Estás seguro de eliminar este producto?');">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded shadow">Eliminar</button>

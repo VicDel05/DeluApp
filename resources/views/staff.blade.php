@@ -10,7 +10,7 @@
         <div class="container">
           <div class="flex justify-center flex-wrap text-white">
             <div class="w-full md:w-1/3 xl:w-1/3 p-4">
-              <a href="#" class=" text-white font-bold py-2 px-4 rounded">
+              <a href="/staff/products" class=" text-white font-bold py-2 px-4 rounded">
                 <div class="bg-sky-600 hover:bg-sky-700 rounded shadow-md p-6 text-center">
                   <h5 class="text-lg font-bold">Productos</h5>
                 </div>

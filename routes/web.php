@@ -29,6 +29,7 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', \App\Http\Middleware\CheckEmployeeRole::class])->group(function () {
     Route::get('/staff', [EmployeeMenuController::class, 'index'])->name('staff');
+    Route::get('/staff/products', [EmployeeMenuController::class, 'showProducts'])->name('products');
 });
 
 Route::middleware([App\Http\Middleware\IsAdmin::class])->group(function () {

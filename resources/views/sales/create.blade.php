@@ -10,8 +10,8 @@
         @csrf
         <div class="mb-3">
             <label for="users_id" class="block mb-2 text-sm font-bold text-gray-700">Usuario</label>
-            <p class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline">{{ Auth::user()->nombre }}</p>
             <input type="text" name="users_id" id="users_id" value="{{ Auth::user()->id }}" hidden>
+            <p class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline">{{ Auth::user()->nombre }}</p>
 
             <input type="hidden" id="fecha_venta" name="fecha_venta" value="" />
         </div>
@@ -36,10 +36,12 @@
                     @foreach($products as $product)
                         <tr>
                             <td class="border px-4 py-2">{{ $product->nombre }}</td>
-                            <td class="border px-4 py-2">${{ $product->precio }}</td>
+                            <td class="border px-4 py-2">${{ $product->precio }}
+                                {{-- <input type="hidden" name="products[{{ $product->id }}][precio]" value="{{ $product->precio }}"> --}}
+                            </td>
                             <td class="border px-4 py-2">
                                 <input type="hidden" name="products[{{ $product->id }}][id]" value="{{ $product->id }}">
-                                <input type="number" name="products[{{ $product->id }}][cantidad]" value="0" min="1" max="{{ $product->stock }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                                <input type="number" name="products[{{ $product->id }}][cantidad]" value="0" min="0" max="{{ $product->stock }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                                 {{-- <input type="number" name="products[{{ $product->id }}]" min="0" max="{{ $product->stock }}" value="0" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"> --}}
                             </td>
                         </tr>

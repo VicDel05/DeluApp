@@ -44,7 +44,7 @@ class UsersController extends Controller{
             'password' => bcrypt($request->password), // Encriptar contraseña
         ]);
 
-        //Auth::login($user);
+        Auth::login($user);
 
         return redirect()->route('users.index')->with('success', 'Usuario creado correctamente');
     }

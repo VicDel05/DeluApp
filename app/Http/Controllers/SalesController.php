@@ -22,101 +22,136 @@ class SalesController extends Controller
     public function create(){
         // Obtener todos los productos y usuarios para el formulario
         $products = Products::all();
-        $users = User::all();
+        //$user = User::all(); , 'user'
 
         // Retornar la vista con los productos y usuarios
-        return view('sales.create', compact('products', 'users'));
+        return view('sales.create', compact('products'));
     }
 
     // Guardar una nueva venta en la base de datos
     public function store(Request $request){
-        //dd($request->all());
+    dd($request->all());
+
+        // Validar los datos
+    $request->validate([
+        'users_id' => ['required', 'int', 'exists:users,id'],
+        'fecha_venta' => ['required', 'date'],
+        'products' => ['required', 'array'],
+        'products.*' => ['exists:products,id'],
+        'products' => ['required', 'array'],
+        'products.*' => ['integer:min:1'],
+    ]);
+
+    // Inicializar el total de la venta
+    $total = 0;
+
+    // Recorrer los productos y calcular el total
+    foreach ($request->products as $index => $productId) {
+        $product = Products::find($productId);
+        $cantidad = $request->stock[$index];
+        $total += $product->precio * $cantidad;
+    }
+
+    // Crear la venta
+    $sale = Sales::create([
+        'users_id' => $request->users_id,
+        'total' => $total,
+        'fecha_venta' => $request->fecha_venta,
+    ]);
+
+    // Registrar los productos en la tabla intermedia (product_sale)
+    foreach ($request->products as $index => $productId) {
+        $cantidad = $request->stock[$index];
+        $sale->products()->attach($productId, ['cantidad' => $cantidad]);
+    }
+
+    return redirect()->route('sales.index')->with('success', 'Venta registrada correctamente');
 
         // Validar la solicitud
-        $request->validate([
-            'users_id' => 'required|exists:users,id',
-            'products' => 'required|array',
-            'fecha_venta' => 'required|date',
-            'products.*.id' => 'required|exists:products,id',
-            'products.*.quantity' => 'required|integer|min:1',
-        ]);
+        // $request->validate([
+        //     'users_id' => 'required|exists:users,id',
+        //     'products' => 'required|array',
+        //     'fecha_venta' => 'required|date',
+        //     'products.*.id' => 'required|exists:products,id',
+        //     'products.*.stock' => 'required|integer|min:1',
+        // ]);
         
     
-        $total = 0;
-        $productsWithErrors = [];
+        // $total = 0;
+        // $productsWithErrors = [];
     
-        // Validación de stock disponible
-        foreach ($request->products as $productId => $cantidad) {
-            if ($cantidad > 0) {
-                $products = Products::find($productId);
+        // // Validación de stock disponible
+        // foreach ($request->products as $productId => $stock) {
+        //     if ($stock > 0) {
+        //         $products = Products::find($productId);
     
-                if ($cantidad > $products->stock) {
-                    $productsWithErrors[] = $products->nombre; // Guardamos los productos con stock insuficiente
-                }
-            }
-        }
+        //         if ($stock > $products->stock) {
+        //             $productsWithErrors[] = $products->nombre; // Guardamos los productos con stock insuficiente
+        //         }
+        //     }
+        // }
     
-        // Si hay productos con stock insuficiente, redirigir de vuelta con error
-        if (count($productsWithErrors) > 0) {
-            return redirect()->back()->withErrors(['stock' => 'Stock insuficiente para los siguientes productos: ' . implode(', ', $productsWithErrors)]);
-        }
+        // // Si hay productos con stock insuficiente, redirigir de vuelta con error
+        // if (count($productsWithErrors) > 0) {
+        //     return redirect()->back()->withErrors(['stock' => 'Stock insuficiente para los siguientes productos: ' . implode(', ', $productsWithErrors)]);
+        // }
 
-        // Procesar los productos seleccionados $productId => $quantity
-        foreach ($request->products as $productData) {
-            $products = Products::find($productData['id']);
+        // // Procesar los productos seleccionados $productId => $quantity
+        // foreach ($request->products as $productData) {
+        //     $products = Products::find($productData['id']);
 
-            // Verificar que haya suficiente stock
-            if ($products->stock < $productData['cantidad']) {
-                return redirect()->back()->with('error', 'No hay suficiente stock para el producto ' . $products->nombre);
-            }
-                // Calcular el precio total sumando el precio del producto por la cantidad comprada
-                $total += $products->precio * $productData['cantidad'];
-        }
+        //     // Verificar que haya suficiente stock
+        //     if ($products->stock < $productData['stock']) {
+        //         return redirect()->back()->with('error', 'No hay suficiente stock para el producto ' . $products->nombre);
+        //     }
+        //         // Calcular el precio total sumando el precio del producto por la cantidad comprada
+        //         $total += $products->precio * $productData['stock'];
+        // }
 
         
-            // if ($quantity > 0) {
-            //     $product = Products::find($productId);
-            //     $subtotal = $product->precio * $quantity;
-            //     $total += $subtotal;
+        //     // if ($quantity > 0) {
+        //     //     $product = Products::find($productId);
+        //     //     $subtotal = $product->precio * $quantity;
+        //     //     $total += $subtotal;
     
-            //     // Restar la cantidad comprada del stock
-            //     $product->update([
-            //         'stock' => $product->stock - $quantity,
-            //     ]);
+        //     //     // Restar la cantidad comprada del stock
+        //     //     $product->update([
+        //     //         'stock' => $product->stock - $quantity,
+        //     //     ]);
     
-            //     // Guardar los productos en la venta
-            //     $sale->products()->attach($productId, [
-            //         'cantidad' => $quantity,
-            //         'subtotal' => $subtotal
-            //     ]);
-            // }
+        //     //     // Guardar los productos en la venta
+        //     //     $sale->products()->attach($productId, [
+        //     //         'cantidad' => $quantity,
+        //     //         'subtotal' => $subtotal
+        //     //     ]);
+        //     // }
         
     
-            // Actualizar el total de la venta
+        //     // Actualizar el total de la venta
         
-        // Crear la venta
-        $sale = Sales::create([
-            'users_id' => $request->users_id,
-            'fecha_venta' => $request->fecha_venta,
-            'total' => $total,
-        ]);
+        // // Crear la venta
+        // $sale = Sales::create([
+        //     'users_id' => $request->users_id,
+        //     'fecha_venta' => $request->fecha_venta,
+        //     'total' => $total,
+        // ]);
 
-        foreach ($request->products as $productData) {
-            $products = Products::find($productData['id']);
+        // foreach ($request->products as $productData) {
+        //     $products = Products::find($productData['id']);
     
-            // Actualizar el stock del producto
-            $products->stock -= $productData['cantidad'];
-            $products->save();
+        //     // Actualizar el stock del producto
+        //     $products->stock -= $productData['stock'];
+        //     $products->save();
     
-            // Insertar en la tabla intermedia product_sale
-            $sale->products()->attach($products->id, ['cantidad' => $productData['cantidad']]);
-        }
+        //     // Insertar en la tabla intermedia product_sale
+        //     $sale->products()->attach($products->id, ['stock' => $productData['cantidad']]);
+        // }
             
-        $sale->update(['total' => $total]);
+        // $sale->update(['total' => $total]);
     
 
-        // Redirigir al listado de ventas con un mensaje de éxito
-        return redirect()->route('sales.index')->with('success', 'Venta creada correctamente');
+        // // Redirigir al listado de ventas con un mensaje de éxito
+        // return redirect()->route('sales.index')->with('success', 'Venta creada correctamente');
     }
 
     // Mostrar los detalles de una venta específica

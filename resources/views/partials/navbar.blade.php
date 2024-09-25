@@ -33,9 +33,9 @@
                   <li>
                       <a class="flex items-center text-lg hover:text-blue-500" href="{{ route('products.index') }}">Productos</a>
                   </li>
-                  {{-- <li>
+                  <li>
                       <a class="flex items-center text-lg hover:text-blue-500" href="{{ route('sales.index') }}">Ventas</a>
-                  </li> --}}
+                  </li>
                   <li>
                       <a class="flex items-center text-lg hover:text-blue-500" href="{{ route('reports.index') }}">Reportes</a>
                   </li>
@@ -56,11 +56,11 @@
                           Productos
                       </a>
                   </li>
-                  {{-- <li>
+                  <li>
                       <a class="flex items-center text-lg hover:text-blue-500" href="{{ route('sales.index') }}">
                           Ventas
                       </a>
-                  </li> --}}
+                  </li>
                   <li>
                       <a class="flex items-center text-lg hover:text-blue-500" href="{{ route('acount') }}">
                           Perfil

@@ -18,13 +18,13 @@
             </div>
           </div>
           <div class="flex justify-center flex-wrap text-white">
-            {{-- <div class="w-1/2 md:w-1/3 xl:w-1/3 p-4">
-              <a href="sales" class="font-bold py-2 px-4 rounded">
+            <div class="w-1/2 md:w-1/3 xl:w-1/3 p-4">
+              <a href="/sales" class="font-bold py-2 px-4 rounded">
                 <div class="bg-sky-600 hover:bg-sky-700 rounded shadow-md p-6 text-center">
                   <h5 class="text-lg font-bold">Ventas</h5>
                 </div>
               </a>
-            </div> --}}
+            </div>
             <div class="w-1/2 md:w-1/3 xl:w-1/3 p-4">
               <a href="/acount" class="font-bold py-2 px-4 rounded">
                 <div class="bg-sky-600 hover:bg-sky-700 rounded shadow-md p-6 text-center">

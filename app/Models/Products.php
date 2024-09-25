@@ -24,8 +24,7 @@ class Products extends Model
     }
 
     public function sales(){
-        return $this->belongsToMany(Sales::class, 'product_sale')
-                    ->withPivot('cantidad') // Si deseas acceder a la cantidad
-                    ->withTimestamps();
+        return $this->belongsToMany(Sales::class)
+                    ->withPivot('cantidad'); // Si deseas acceder a la cantidad
     }
 }

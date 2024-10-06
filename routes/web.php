@@ -58,9 +58,17 @@ Route::middleware([App\Http\Middleware\IsAdmin::class])->group(function () {
     Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
     Route::get('/reports/stock', [ReportController::class, 'stockReport'])->name('reports.stock');
     Route::get('/reports/user', [ReportController::class, 'userReport'])->name('reports.user');
+    Route::get('/reports/sale', [ReportController::class, 'saleReport'])->name('reports.sale');
 });
 
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']) -> name('register.submit');
 Route::get('/acount', [AcountController::class, 'showView'])->name('acount');
-Route::resource('sales', SalesController::class);
+//Route::resource('sales', SalesController::class);
+
+Route::get('/sales', [SalesController::class, 'index'])->name('sales.index');
+Route::get('/sales/create', [SalesController::class, 'create'])->name('sales.create');    
+Route::post('/sales/create', [SalesController::class, 'store'])->name('sales.store');
+Route::get('/sales/edit/{id}', [SalesController::class, 'edit'])->name('sales.edit');
+Route::put('/sales/update/{id}', [SalesController::class, 'update'])->name('sales.update');
+Route::delete('/sales/delete/{id}', [SalesController::class, 'destroy'])->name('sales.delete');

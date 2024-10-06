@@ -10,7 +10,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"> --}}
 </head>
-<body>
+<body class="bg-gray-100">
 
     <!-- Navbar -->
     @if (!Route::is('login'))
@@ -18,12 +18,9 @@
     @endif
 
     <!-- Main Content -->
-    <div class="container bg-gray-100">
+    <div class="container">
         @yield('content')
     </div>
-
-    <!-- Footer -->
-    {{-- @include('partials.footer') --}}
 
     {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script> --}}
     {{-- <script src="{ asset('js/app.js') }}"></script> --}}

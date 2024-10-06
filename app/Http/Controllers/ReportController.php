@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Products;
+use App\Models\Sales;
 use App\Models\User;
 
 class ReportController extends Controller{
@@ -38,5 +39,19 @@ class ReportController extends Controller{
         //$staffPercentage = ($totalUsers > 0) ? ($adminUsers->count() / $staffUsers) * 100 : 0;
 
         return view('reports.user', compact('adminUsers', 'staffUsers', 'totalUsers'));
+    }
+
+    public function saleReport(){
+        // Obtener todas las ventas con los productos asociados y el usuario
+        $ventas = Sales::orderBy('created_at', 'desc')->with('products', 'users')->paginate(6);
+
+        $totalSales = Sales::count();
+
+        $totalPrice = Sales::sum('total');
+
+        $mostEmployeeSale = Sales::count('users_id');
+
+        // Retornar vista con los datos de las ventas
+        return view('reports.sale', compact('ventas', 'totalSales', 'totalPrice', 'mostEmployeeSale'));
     }
 }

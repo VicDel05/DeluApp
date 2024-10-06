@@ -3,11 +3,11 @@
   <div class="container mx-auto flex justify-between items-center">
       @if (Auth::check() && Auth::user()->role_id == '1')
           <a class="text-lg font-bold" href="{{ url('/dashboard') }}">
-              <img src="img/Delu24-wbg.png" class="w-28" alt="logo" draggable="false">
+              <img src="{{ asset('img/Delu24-wbg.png') }}" class="w-28" alt="logo" draggable="false">
           </a>
       @else
           <a class="text-lg font-bold" href="{{ url('/staff') }}">
-              <img src="img/Delu24-wbg.png" class="w-28" alt="logo" draggable="false">
+              <img src="{{ asset('img/Delu24-wbg.png') }}" class="w-28" alt="logo" draggable="false">
           </a>
       @endif
 
@@ -33,9 +33,9 @@
                   <li>
                       <a class="flex items-center text-lg hover:text-blue-500" href="{{ route('products.index') }}">Productos</a>
                   </li>
-                  {{-- <li>
+                  <li>
                       <a class="flex items-center text-lg hover:text-blue-500" href="{{ route('sales.index') }}">Ventas</a>
-                  </li> --}}
+                  </li>
                   <li>
                       <a class="flex items-center text-lg hover:text-blue-500" href="{{ route('reports.index') }}">Reportes</a>
                   </li>
@@ -56,11 +56,11 @@
                           Productos
                       </a>
                   </li>
-                  {{-- <li>
+                  <li>
                       <a class="flex items-center text-lg hover:text-blue-500" href="{{ route('sales.index') }}">
                           Ventas
                       </a>
-                  </li> --}}
+                  </li>
                   <li>
                       <a class="flex items-center text-lg hover:text-blue-500" href="{{ route('acount') }}">
                           Perfil

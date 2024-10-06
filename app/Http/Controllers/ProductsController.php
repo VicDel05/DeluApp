@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class ProductsController extends Controller
 {
     public function index(){
-        $products = Products::with('categories')->get();;
+        $products = Products::with('categories')->orderBy('created_at', 'desc')->paginate(4);
         return view('products.index', compact('products'));
     }
 

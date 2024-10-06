@@ -24,33 +24,38 @@
                         <input type="number" name="products[{{ $product->id }}][cantidad]" value="0" min="1" max="{{ $product->stock }}">
                     </div>
         @endforeach --}}
-            <table class="table-auto w-full">
+            <table class="min-w-full table-auto bg-white shadow-md rounded-lg overflow-hidden mt-5">
                 <thead>
-                    <tr>
+                    <tr class="bg-gray-200 text-left text-gray-600 uppercase text-sm leading-normal">
                         <th class="px-4 py-2">Producto</th>
                         <th class="px-4 py-2">Precio</th>
                         <th class="px-4 py-2">Cantidad</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="text-gray-700 text-sm">
                     @foreach($products as $product)
-                        <tr>
+                    {{-- <div class="mb-2">
+                        <label>
+                            <input type="checkbox" name="products[{{ $product->id }}]" value="{{ $product->id }}">
+                            {{ $product->nombre }} (Stock: {{ $product->stock }})
+                        </label>
+                        <input type="number" name="stock[{{ $product->id }}]" placeholder="Cantidad" class="ml-2 p-2 border w-24">
+                    </div> --}}
+                        <tr class="border-b border-gray-200 hover:bg-gray-50">
                             <td class="border px-4 py-2">{{ $product->nombre }}</td>
-                            <td class="border px-4 py-2">${{ $product->precio }}</td>
+                            <td class="border px-4 py-2">{{ $product->precio }}</td>
                             <td class="border px-4 py-2">
                                 <input type="hidden" name="products[{{ $product->id }}][id]" value="{{ $product->id }}">
-                                <input type="number" name="products[{{ $product->id }}][cantidad]" value="0" min="1" max="{{ $product->stock }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                                {{-- <input type="number" name="products[{{ $product->id }}]" min="0" max="{{ $product->stock }}" value="0" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"> --}}
+                                <input type="hidden" name="products[{{ $product->id }}][precio]" value="{{ $product->precio }}">
+                                <input type="number" name="products[{{ $product->id }}][stock]" value="0" min="0" max="{{ $product->stock }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                                {{-- <input type="number" name="products[{{ $product->id }}]" min="0" max="{{ $product->stock }}" value="0" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">  --}}
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
-
-        {{-- <div class="mb-3">
-            <label for="fecha_venta" class="block mb-2 text-sm font-bold text-gray-700">Fecha</label>
-            <input type="datetime-local" name="fecha_venta" id="fecha_venta" class="block w-full  text-sm text-gray-700 px-3 py-2 border rounded shadow appearance-none focus:outline-none focus:shadow-outline">
-        </div> --}}
+            {{-- <label for="total">total para prueba</label>
+            <input type="text" name="total" id="total"> --}}
 
         <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 mt-3 rounded">Registrar venta</button>
     </form>

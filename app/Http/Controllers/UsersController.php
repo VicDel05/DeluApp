@@ -13,7 +13,7 @@ class UsersController extends Controller{
     // Listar todos los usuarios
     public function index()
     {
-        $users = User::with('role')->get(); // Traer también el rol del usuario
+        $users = User::with('role')->orderBy('created_at', 'desc')->paginate(4); // Traer también el rol del usuario
         return view('users.index', compact('users'));
     }
 

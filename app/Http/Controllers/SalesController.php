@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product_sale;
 use App\Models\Products;
 use App\Models\Sales;
 use App\Models\User;
 use Illuminate\Http\Request;
+use PhpParser\Node\Stmt\TryCatch;
 
 class SalesController extends Controller
 {
     // Mostrar todas las ventas
     public function index(){
         // Obtener todas las ventas con sus productos y el usuario correspondiente
-        $sales = Sales::with(['products', 'users'])->get();
+        $sales = Sales::with(['products', 'users'])->orderBy('created_at', 'desc')->paginate(7);
         
         // Retornar la vista con las ventas
         return view('sales.index', compact('sales'));
@@ -32,88 +34,39 @@ class SalesController extends Controller
     public function store(Request $request){
         //dd($request->all());
 
-        // Validar la solicitud
-        $request->validate([
-            'users_id' => 'required|exists:users,id',
-            'products' => 'required|array',
-            'fecha_venta' => 'required|date',
-            'products.*.id' => 'required|exists:products,id',
-            'products.*.quantity' => 'required|integer|min:1',
+        $venta = Sales::create([
+            'users_id' => $request->input('users_id'),
+            'fecha_venta' => $request->input('fecha_venta'),
+            'total' => 0,
         ]);
-        
-    
+
         $total = 0;
-        $productsWithErrors = [];
-    
-        // Validación de stock disponible
-        foreach ($request->products as $productId => $cantidad) {
-            if ($cantidad > 0) {
-                $products = Products::find($productId);
-    
-                if ($cantidad > $products->stock) {
-                    $productsWithErrors[] = $products->nombre; // Guardamos los productos con stock insuficiente
+
+        foreach ($request->input('products') as $producto) {
+            if ($producto['stock'] > 0){
+                // Verificar si el producto tiene stock disponible
+                $product = Products::find($producto['id']);
+                if ($product->stock >= $producto['stock']) {
+                    // Actualizar el stock del producto
+                    $product->stock -= $producto['stock'];
+                    $product->save();
+        
+                    // Calcular el total de la venta
+                    $total += $producto['stock'] * $producto['precio'];
+        
+                    // Crear un nuevo registro en la tabla de detalles de venta
+                    Product_sale::create([
+                        'products_id' => $producto['id'],
+                        'sales_id' => $venta->id,
+                        'cantidad' => $producto['stock'],
+                        'precio_unitario' => $producto['precio'],
+                    ]);
                 }
             }
         }
-    
-        // Si hay productos con stock insuficiente, redirigir de vuelta con error
-        if (count($productsWithErrors) > 0) {
-            return redirect()->back()->withErrors(['stock' => 'Stock insuficiente para los siguientes productos: ' . implode(', ', $productsWithErrors)]);
-        }
 
-        // Procesar los productos seleccionados $productId => $quantity
-        foreach ($request->products as $productData) {
-            $products = Products::find($productData['id']);
-
-            // Verificar que haya suficiente stock
-            if ($products->stock < $productData['cantidad']) {
-                return redirect()->back()->with('error', 'No hay suficiente stock para el producto ' . $products->nombre);
-            }
-                // Calcular el precio total sumando el precio del producto por la cantidad comprada
-                $total += $products->precio * $productData['cantidad'];
-        }
-
-        
-            // if ($quantity > 0) {
-            //     $product = Products::find($productId);
-            //     $subtotal = $product->precio * $quantity;
-            //     $total += $subtotal;
-    
-            //     // Restar la cantidad comprada del stock
-            //     $product->update([
-            //         'stock' => $product->stock - $quantity,
-            //     ]);
-    
-            //     // Guardar los productos en la venta
-            //     $sale->products()->attach($productId, [
-            //         'cantidad' => $quantity,
-            //         'subtotal' => $subtotal
-            //     ]);
-            // }
-        
-    
-            // Actualizar el total de la venta
-        
-        // Crear la venta
-        $sale = Sales::create([
-            'users_id' => $request->users_id,
-            'fecha_venta' => $request->fecha_venta,
-            'total' => $total,
-        ]);
-
-        foreach ($request->products as $productData) {
-            $products = Products::find($productData['id']);
-    
-            // Actualizar el stock del producto
-            $products->stock -= $productData['cantidad'];
-            $products->save();
-    
-            // Insertar en la tabla intermedia product_sale
-            $sale->products()->attach($products->id, ['cantidad' => $productData['cantidad']]);
-        }
-            
-        $sale->update(['total' => $total]);
-    
+        $venta->total = $total;
+        $venta->save();
 
         // Redirigir al listado de ventas con un mensaje de éxito
         return redirect()->route('sales.index')->with('success', 'Venta creada correctamente');

@@ -15,7 +15,7 @@ class EmployeeMenuController extends Controller
     }
 
     public function showProducts(){
-        $products = Products::with('categories')->get();;
+        $products = Products::with('categories')->orderBy('created_at', 'desc')->paginate(4);
         return view('staff.index', compact('products'));
     }
 }

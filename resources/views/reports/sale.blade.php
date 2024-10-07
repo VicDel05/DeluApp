@@ -58,23 +58,23 @@
     </table>
 </div> --}}
 
-<div class="container mx-auto p-4 md:p-8 lg:p-12">
+<div class="container mx-auto p-4 pt-10 md:p-8 lg:p-12">
     <h1 class="text-3xl font-extrabold mb-6 text-gray-800 text-center">Reporte de Ventas</h1>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         @foreach ($ventas as $venta)
-        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
+        <div id="venta-{{ $venta->id }}" class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-lg font-semibold text-gray-700">Venta #{{ $venta->id }}</h2>
                 <span class="text-sm text-gray-500">{{ $venta->fecha_venta }}</span>
             </div>
 
-            <div class="border-t border-gray-200 pt-4">
+            <div class="detalle border-t border-gray-200 pt-4">
                 <h3 class="text-gray-600 text-sm font-medium mb-2">Empleado</h3>
                 <p class="text-gray-800 text-base font-semibold mb-4">{{ $venta->users->nombre }} {{ $venta->users->apellidoP }}</p>
             </div>
 
-            <div class="border-t border-gray-200 pt-4">
+            <div class="detalle productos-vendidos border-t border-gray-200 pt-4">
                 <h3 class="text-gray-600 text-sm font-medium mb-2">Productos Vendidos</h3>
                 <ul class="text-gray-700 text-sm space-y-1">
                     @foreach ($venta->products as $product)
@@ -86,11 +86,16 @@
                 </ul>
             </div>
 
-            <div class="border-t border-gray-200 pt-4 mt-4">
+            <div class="detalle total-venta border-t border-gray-200 pt-4 mt-4">
                 <div class="flex justify-between items-center">
                     <span class="text-sm font-medium text-gray-600">Total de Venta</span>
                     <span class="text-lg font-bold text-green-600">${{ number_format($venta->total, 2) }}</span>
                 </div>
+            </div>
+            <div class="flex justify-center mt-5">
+                <button onclick="descargarDetalle({{ $venta->id }})" class="bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-6 rounded-lg shadow-lg transition duration-200">
+                    Descargar Detalle
+                </button>
             </div>
         </div>
         @endforeach
@@ -98,5 +103,30 @@
     <br>
     {{ $ventas->links() }}
 </div>
+
+<script>
+    function descargarDetalle(idVenta) {
+        // Obtener el detalle de la venta
+        const venta = document.querySelector(`#venta-${idVenta}`);
+        const detalles = venta.querySelectorAll('.detalle');
+        const productos = venta.querySelector('.productos-vendidos');
+        const totalVenta = venta.querySelector('.total-venta');
+
+        // Crear un archivo con el detalle de la venta
+        const archivo = new Blob([
+            ['<h2>Venta #' + idVenta + '</h2>'],
+            [detalles[0].outerHTML],
+            [detalles[1].outerHTML],
+            ['<h3>Total de Venta</h3>'],
+            [totalVenta.outerHTML]
+        ].map(function(val) {
+            return val.join('');
+        }), { type: 'text/html' });
+        const enlace = document.createElement('a');
+        enlace.href = URL.createObjectURL(archivo);
+        enlace.download = `Detalle_Venta_${idVenta}.html`;
+        enlace.click();
+    }
+</script>
 
 @endsection

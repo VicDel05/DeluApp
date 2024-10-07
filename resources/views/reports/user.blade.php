@@ -3,7 +3,7 @@
 @section('title', 'Reporte de usuarios')
 
 @section('content')
-<div class="container mx-auto p-4" id="userReport">
+<div class="container mx-auto p-4 pt-10 md:p-8 lg:p-12" id="userReport">
     <h1 class="text-3xl font-bold mb-4">Reporte de Usuarios</h1>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">

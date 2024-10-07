@@ -4,7 +4,7 @@
 
 @section('content')
 
-<div class="container mx-auto p-4 pt-6 md:p-6 lg:p-12">
+<div class="container mx-auto p-4 pt-10 md:p-6 lg:p-12">
   <h1 class="text-4xl font-bold mb-6 text-gray-800">Perfil</h1>
   <div class="flex flex-wrap -mx-4">
     <div class="w-full md:w-1/2 px-4 mb-3">

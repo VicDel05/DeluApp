@@ -3,7 +3,7 @@
 @section('title', 'Editar usuario')
 
 @section('content')
-<div class="container mx-auto p-4 pt-6 md:p-6 lg:p-12">
+<div class="container mx-auto p-4 pt-10 md:p-6 lg:p-12">
     <h1 class="text-4xl font-bold mb-6 text-gray-800">Editar categoría</h1>
 
     <form method="POST" action="{{ route('categories.update', $categories->id) }}" class="bg-white shadow-lg rounded-lg p-6">

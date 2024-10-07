@@ -3,7 +3,7 @@
 @section('title', 'Registrar venta')
 
 @section('content')
-<div class="container mx-auto p-4 pt-6 md:p-6 lg:p-12">
+<div class="container mx-auto p-4 pt-10 md:p-6 lg:p-12">
     <h1 class="text-3xl font-bold mb-4">Registrar venta</h1>
 
     <form method="POST" action="{{ route('sales.store') }}">

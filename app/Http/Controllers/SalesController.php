@@ -31,46 +31,87 @@ class SalesController extends Controller
     }
 
     // Guardar una nueva venta en la base de datos
-    public function store(Request $request){
-        //dd($request->all());
+    // public function store(Request $request){
+    //     //dd($request->all());
 
+    //     $venta = Sales::create([
+    //         'users_id' => $request->input('users_id'),
+    //         'fecha_venta' => $request->input('fecha_venta'),
+    //         'total' => 0,
+    //     ]);
+
+    //     $total = 0;
+
+    //     foreach ($request->input('products') as $producto) {
+    //         if ($producto['stock'] > 0){
+    //             // Verificar si el producto tiene stock disponible
+    //             $product = Products::find($producto['id']);
+    //             if ($product->stock >= $producto['stock']) {
+    //                 // Actualizar el stock del producto
+    //                 $product->stock -= $producto['stock'];
+    //                 $product->save();
+        
+    //                 // Calcular el total de la venta
+    //                 $total += $producto['stock'] * $producto['precio'];
+        
+    //                 // Crear un nuevo registro en la tabla de detalles de venta
+    //                 Product_sale::create([
+    //                     'products_id' => $producto['id'],
+    //                     'sales_id' => $venta->id,
+    //                     'cantidad' => $producto['stock'],
+    //                     'precio_unitario' => $producto['precio'],
+    //                 ]);
+    //             }
+    //         }
+    //     }
+
+    //     $venta->total = $total;
+    //     $venta->save();
+
+    //     // Redirigir al listado de ventas con un mensaje de éxito
+    //     return redirect()->route('sales.index')->with('success', 'Venta creada correctamente');
+    // }
+    public function store(Request $request){
+        $request->validate([
+            'users_id' => 'required|exists:users,id',
+            'products' => 'required|array',
+        ]);
+    
         $venta = Sales::create([
-            'users_id' => $request->input('users_id'),
-            'fecha_venta' => $request->input('fecha_venta'),
+            'users_id' => $request->users_id,
+            'fecha_venta' => now(),
             'total' => 0,
         ]);
-
+    
         $total = 0;
-
-        foreach ($request->input('products') as $producto) {
-            if ($producto['stock'] > 0){
-                // Verificar si el producto tiene stock disponible
+    
+        foreach ($request->products as $producto) {
+            if ($producto['cantidad'] > 0) {
                 $product = Products::find($producto['id']);
-                if ($product->stock >= $producto['stock']) {
-                    // Actualizar el stock del producto
-                    $product->stock -= $producto['stock'];
-                    $product->save();
-        
-                    // Calcular el total de la venta
-                    $total += $producto['stock'] * $producto['precio'];
-        
-                    // Crear un nuevo registro en la tabla de detalles de venta
+    
+                if ($product && $product->stock >= $producto['cantidad']) {
+                    // Descontar stock y calcular total
+                    $product->decrement('stock', $producto['cantidad']);
+                    $subtotal = $producto['cantidad'] * $producto['precio'];
+                    $total += $subtotal;
+    
+                    // Registrar detalle de la venta
                     Product_sale::create([
                         'products_id' => $producto['id'],
                         'sales_id' => $venta->id,
-                        'cantidad' => $producto['stock'],
+                        'cantidad' => $producto['cantidad'],
                         'precio_unitario' => $producto['precio'],
                     ]);
                 }
             }
         }
-
-        $venta->total = $total;
-        $venta->save();
-
-        // Redirigir al listado de ventas con un mensaje de éxito
-        return redirect()->route('sales.index')->with('success', 'Venta creada correctamente');
+    
+        // Guardar total final de la venta
+        $venta->update(['total' => $total]);
+    
+        return redirect()->route('sales.create')->with('success', 'Venta registrada correctamente');
     }
+    
 
     // Mostrar los detalles de una venta específica
     public function show(Sales $sales){

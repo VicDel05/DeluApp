@@ -60,7 +60,7 @@
         </tbody>
     </table>
     <div class="flex justify-center mt-5">
-        <button onclick="printSection()" class="bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-6 rounded-lg shadow-lg transition duration-200">
+        <button onclick="printSection()" class="bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-3 px-5 rounded-lg shadow-md transition-transform transform hover:scale-105">
             Descargar reporte
         </button>
     </div>

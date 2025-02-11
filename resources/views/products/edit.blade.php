@@ -45,7 +45,7 @@
         </div>
 
         <div class="flex justify-center">
-            <button type="submit" class="bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-6 rounded-lg shadow-lg transition duration-200">
+            <button type="submit" class="bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-3 px-5 rounded-lg shadow-md transition-transform transform hover:scale-105">
                 Actualizar
             </button>
         </div>

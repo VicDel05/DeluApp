@@ -5,7 +5,7 @@
 @section('content')
 
     <div class="flex justify-center items-center min-h-screen bg-gray-100">
-      <div class="flex flex-col md:flex-row bg-white shadow-lg rounded-lg overflow-hidden w-full md:w-3/4">
+      <div class="flex flex-col md:flex-row bg-white shadow-lg rounded-lg overflow-hidden w-96 md:w-3/4">
           <!-- Logo a la izquierda -->
           <div class="w-full md:w-1/2 bg-white flex justify-center items-center p-4">
               <img src="img/Delu24-logo.png" alt="Logo" class="w-3/4" draggable="false">

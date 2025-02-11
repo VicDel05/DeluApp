@@ -11,18 +11,17 @@
     {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"> --}}
 </head>
 <body class="bg-gray-100">
-
-    <!-- Navbar -->
-    @if (!Route::is('login'))
+    <div class="flex">
+        <!-- Navbar -->
+        @if (!Route::is('login'))
         @include('partials.navbar')   
-    @endif
+        @endif
 
-    <!-- Main Content -->
-    <div class="container">
+        <!-- Main Content -->
+        <div class="flex-1 p-6 transition-all duration-300 ease-in-out md:ml-64">
         @yield('content')
+        </div>
     </div>
-
-    {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script> --}}
-    {{-- <script src="{ asset('js/app.js') }}"></script> --}}
+    
 </body>
 </html>

@@ -14,7 +14,7 @@
     @endif
 
     <div class="flex justify-between items-center mb-4">
-        <a href="{{ route('users.create') }}" class="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded shadow">
+        <a href="{{ route('users.create') }}" class="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded-xl shadow">
             Crear Usuario
         </a>
     </div>
@@ -38,13 +38,13 @@
                         <td class="py-3 px-6">{{ $user->email }}</td>
                         <td class="py-3 px-6">{{ $user->role->nombre ?? 'Sin Rol' }}</td>
                         <td class="py-3 px-6 flex space-x-2">
-                            <a href="{{ route('users.edit', [($user->id)]) }}" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded shadow">
+                            <a href="{{ route('users.edit', [($user->id)]) }}" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-xl shadow">
                                 Editar
                             </a>
                             <form action="{{ route('users.delete', $user->id) }}" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar este usuario?');" class="inline">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded shadow">
+                                <button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-xl shadow">
                                     Eliminar
                                 </button>
                             </form>

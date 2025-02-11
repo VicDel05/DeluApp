@@ -14,7 +14,7 @@
     @endif
 
     <div class="flex justify-between items-center mb-4">
-        <a href="{{ route('products.create') }}" class="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded shadow">
+        <a href="{{ route('products.create') }}" class="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded-xl shadow">
             Registrar producto
         </a>
     </div>
@@ -42,11 +42,11 @@
                         <td class="py-3 px-6">{{ $product->stock }}</td>
                         <td class="py-3 px-6">{{ $product->categories->nombre ?? 'Sin categoría' }}</td>
                         <td class="py-3 px-6 flex space-x-2">
-                            <a href="{{ route('products.edit', [($product->id)]) }}" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded shadow">Editar</a>
+                            <a href="{{ route('products.edit', [($product->id)]) }}" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-xl shadow">Editar</a>
                             <form action="{{ route('products.delete', $product->id) }}" method="POST" class="inline" onsubmit="return confirm('¿Estás seguro de eliminar este producto?');">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded shadow">Eliminar</button>
+                                <button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-xl shadow">Eliminar</button>
                             </form>
                         </td>
                     </tr>

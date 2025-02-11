@@ -14,7 +14,7 @@
     @endif
 
     @if (Auth::check() && Auth::user()->role_id == '2')
-        <a href="{{ route('sales.create') }}" class="btn btn-primary mb-3 bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded">Registrar venta</a>
+        <a href="{{ route('sales.create') }}" class="btn btn-primary mb-3 bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded-xl">Registrar venta</a>
     @endif
 
     <table class="min-w-full table-auto bg-white shadow-md rounded-lg overflow-hidden mt-5">

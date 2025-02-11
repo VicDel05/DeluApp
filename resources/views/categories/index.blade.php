@@ -8,13 +8,13 @@
     <h1 class="text-4xl font-bold mb-6 text-gray-800">Categorías</h1>
 
     @if (session('success'))
-        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4">
+        <div class="bg-green-100 border border-green-400 text-green-600 px-4 py-3 rounded-xl relative mb-4">
             {{ session('success') }}
         </div>
     @endif
 
     <div class="flex justify-between items-center mb-4">
-        <a href="{{ route('categories.create') }}" class="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded shadow">
+        <a href="{{ route('categories.create') }}" class="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded-xl shadow">
             Crear Categoría
         </a>
     </div>
@@ -36,13 +36,13 @@
                         <td class="py-3 px-6">{{ $categorie->nombre }}</td>
                         <td class="py-3 px-6">{{ $categorie->descripcion }}</td>
                         <td class="py-3 px-6 flex space-x-2">
-                            <a href="{{ route('categories.edit', [($categorie->id)]) }}" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded shadow">
+                            <a href="{{ route('categories.edit', [($categorie->id)]) }}" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-xl shadow">
                                 Editar
                             </a>
                             <form action="{{ route('categories.delete', $categorie->id) }}" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar esta categoría?');" class="inline">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded shadow">
+                                <button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-xl shadow">
                                     Eliminar
                                 </button>
                             </form>
